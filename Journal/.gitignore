@@ -1,0 +1,4 @@
+# 認証情報は絶対にコミットしない（念のための保険。通常はgit pushを使わずブラウザ経由でpushするため未使用）
+kaggle.json
+.github_token
+.routine_status/
