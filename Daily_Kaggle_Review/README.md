@@ -10,3 +10,4 @@
 - [2026-08-03](./2026-08-03/README.md): Biohub - Cell Tracking During Development / Predicting Smartphone Addiction (Playground S6E8) / Hull Tactical - Market Prediction
 - [2026-08-04](./2026-08-04/README.md): Biohub - Cell Tracking During Development / Predicting Smartphone Addiction (Playground S6E8) / Hull Tactical - Market Prediction
 - [2026-08-05](./2026-08-05/README.md): Biohub - Cell Tracking During Development / Predicting Smartphone Addiction (Playground S6E8) / Hull Tactical - Market Prediction
+- [2026-08-10](./2026-08-10/README.md): Biohub - Cell Tracking During Development / Predicting Smartphone Addiction (Playground S6E8) / RSNA Knee Abnormality Detection
