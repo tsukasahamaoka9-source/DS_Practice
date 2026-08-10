@@ -15,6 +15,16 @@ cd "$(git rev-parse --show-toplevel)" || exit 0
 VAULT="$HOME/Document/Claude_Brain"
 # フック配備日。これ以前のコミットは検知対象外(遡って警告しても行動に繋がらないため)
 HOOK_EPOCH="2026-08-09"
+
+# 「反映済み」の判定は2系統のOR。片方だけだと誤検知/見逃しが出る:
+#   (a) コミットhashが月次ログに載っている … ログにhashを書かない回があるので単独では誤検知
+#   (b) 前コミット以降に月次ログが更新されている … hash無しの散文反映を拾う
+# 実例: DS両リポジトリの 0974531 / 0d2782b1 は「フック配備」として散文で反映済みだが
+# hashは書かれていない。(a)だけだと未反映と誤警告する(2026-08-10に検証)
+#
+# 既知の限界: (b)は他の理由でログが更新されただけでも成立するため見逃しが出る。
+# v1の狼少年化(=誤検知でpendingが常に非空)の方が実害が大きかったので誤検知を抑える側に倒した。
+# 見逃しの受け皿は日直の横断検査(vault_doctor.py の check_cross_repo)。この2層構えを崩さないこと。
 # macOSのBSD dateは%:zを解さないため、%zの出力にコロンを挿入して+09:00形式にする
 ts=$(date +"%Y-%m-%dT%H:%M:%S%z" | sed 's/\([0-9][0-9]\)$/:\1/')
 month=$(date +"%Y-%m")
@@ -28,10 +38,18 @@ else
   # 1つ前のコミット(= 反映済みであるべきコミット)
   prev=$(git rev-parse --short HEAD~1 2>/dev/null)
   prevdate=$(git log -1 --format=%cs HEAD~1 2>/dev/null)
-  if [ -n "$prev" ] && [ "$prevdate" \> "$HOOK_EPOCH" ]; then
-    # 当月と前月を対象にする(月跨ぎのコミットを取りこぼさない)
+  prevepoch=$(git log -1 --format=%ct HEAD~1 2>/dev/null)
+  if [ -n "$prev" ] && [ ! "$prevdate" \< "$HOOK_EPOCH" ]; then
+    reflected=0
+    # (a) 当月と前月を対象にhashを探す(月跨ぎのコミットを取りこぼさない)
     prevmonth=$(date -v-1m +"%Y-%m" 2>/dev/null || echo "$month")
-    if ! grep -rqs -- "$prev" "$VAULT/99_Meta/log/${month}.md" "$VAULT/99_Meta/log/${prevmonth}.md"; then
+    grep -rqs -- "$prev" "$VAULT/99_Meta/log/${month}.md" "$VAULT/99_Meta/log/${prevmonth}.md" && reflected=1
+    # (b) 前コミット以降に月次ログが更新されているか(hash無しの反映を拾う)
+    if [ "$reflected" -eq 0 ] && [ -f "$VAULT/$logfile" ]; then
+      logmtime=$(stat -f %m "$VAULT/$logfile" 2>/dev/null || stat -c %Y "$VAULT/$logfile" 2>/dev/null)
+      [ -n "$logmtime" ] && [ -n "$prevepoch" ] && [ "$logmtime" -ge "$prevepoch" ] && reflected=1
+    fi
+    if [ "$reflected" -eq 0 ]; then
       notes+=("1つ前のコミット ${prev} がVaultの ${logfile} に未反映。1〜2行で追記せよ(反映先は索引の log.md ではなく月次ファイル ${logfile})")
       notes+=("返信の最後にルール9の表(状態/ファイル/保存先)を出したか確認せよ")
     fi
