@@ -1,10 +1,48 @@
 #!/usr/bin/env bash
-cd "$(git rev-parse --show-toplevel)"
-hash=$(git rev-parse --short HEAD)
-subject=$(git log -1 --pretty=%s)
+# hook-version: 2  (外部リポジトリ用 / Vault本体用とは別系統)
+# 目的: ルール16の横断適用。Vault(Claude_Brain)への反映漏れを機械的に記録する。
+#
+# v1(2026-08-08配備)の欠陥 — 2026-08-10の日直で発見:
+#   ① 毎コミット無条件で追記 → pendingが常に非空になり「狼少年」化して検知の意味を失う
+#   ② 反映先を「99_Meta/log.md」と案内 → log.mdは2026-08-02の月次分割で"索引"になった。
+#      この誤案内が当月ログ47件の誤配置(2026-08-10に修復)を後押ししていた
+#   ③ 「Rule13の表」と記載 → 状態/ファイル/保存先の表は現在ルール9
+#
+# v2の方針: 「1つ前のコミットがVaultの当月ログに反映されているか」を見る。
+# 直前コミットの反映は"これから"行うため、1コミット分の猶予を置く。
+cd "$(git rev-parse --show-toplevel)" || exit 0
+
+VAULT="$HOME/Document/Claude_Brain"
+# フック配備日。これ以前のコミットは検知対象外(遡って警告しても行動に繋がらないため)
+HOOK_EPOCH="2026-08-09"
+# macOSのBSD dateは%:zを解さないため、%zの出力にコロンを挿入して+09:00形式にする
 ts=$(date +"%Y-%m-%dT%H:%M:%S%z" | sed 's/\([0-9][0-9]\)$/:\1/')
-{
-  echo "${ts} commit ${hash} \"${subject}\""
-  echo "  -> Claude_Brain/99_Meta/log.mdにこのコミットを反映したか確認せよ"
-  echo "  -> 返信の最後にRule13の表(状態/ファイル名/保存先)を出したか確認せよ"
-} >> .vault-log-pending
+month=$(date +"%Y-%m")
+logfile="99_Meta/log/${month}.md"
+
+notes=()
+
+if [ ! -d "$VAULT/.git" ]; then
+  notes+=("Vault($VAULT)が見つからず反映確認ができない。手動で ${logfile} を確認せよ")
+else
+  # 1つ前のコミット(= 反映済みであるべきコミット)
+  prev=$(git rev-parse --short HEAD~1 2>/dev/null)
+  prevdate=$(git log -1 --format=%cs HEAD~1 2>/dev/null)
+  if [ -n "$prev" ] && [ "$prevdate" \> "$HOOK_EPOCH" ]; then
+    # 当月と前月を対象にする(月跨ぎのコミットを取りこぼさない)
+    prevmonth=$(date -v-1m +"%Y-%m" 2>/dev/null || echo "$month")
+    if ! grep -rqs -- "$prev" "$VAULT/99_Meta/log/${month}.md" "$VAULT/99_Meta/log/${prevmonth}.md"; then
+      notes+=("1つ前のコミット ${prev} がVaultの ${logfile} に未反映。1〜2行で追記せよ(反映先は索引の log.md ではなく月次ファイル ${logfile})")
+      notes+=("返信の最後にルール9の表(状態/ファイル/保存先)を出したか確認せよ")
+    fi
+  fi
+fi
+
+if [ ${#notes[@]} -gt 0 ]; then
+  hash=$(git rev-parse --short HEAD)
+  subject=$(git log -1 --pretty=%s)
+  {
+    echo "${ts} commit ${hash} \"${subject}\""
+    for n in "${notes[@]}"; do echo "  -> ${n}"; done
+  } >> .vault-log-pending
+fi
