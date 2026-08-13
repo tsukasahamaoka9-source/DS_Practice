@@ -466,3 +466,27 @@ Kaggle日次ルーティンで登場した用語を蓄積する実用用語集�
 - **なぜ使うか**: 通常のアンサンブルはモデルをN個独立に学習・保存する必要があり計算コストが線形に増えるが、TabMは重み共有によりアンサンブルの多様性の恩恵の多くを1つのモデルサイズに近いコストで得られる。
 - **使うとどうなるか**: 単体の勾配ブースティング木モデルと組み合わせてブレンドすると、木モデル同士では出しにくい「異なる間違え方」をするモデルとして多様性に貢献しやすい（今回のPlaygroundコンペのOOFブレンドnotebookでも上位スコアのメンバーとして採用されていた）。
 - **初出**: 2026-08-05 / Predicting Smartphone Addiction (Playground Series S6E8)
+
+
+## 追加分（2026-08-12〜2026-08-14、手法・前処理・概念・その他）
+
+以下は、上記各セクションの内容と日付的に連続するが、同期ノイズを避けるため本日は本セクションに一括追記する。元のカテゴリは各項目の見出しに記載。
+
+### [手法] 因子分解機（Factorization Machine, FM）
+- **意味**: 各特徴量の値（フィールド, 値）ごとに低次元の潜在ベクトルを1つ割り当て、2つの特徴量間の交互作用をそのベクトル同士の内積で表現するモデル。
+- - **いつ使うか**: 高カーディナリティな特徴量同士の組み合わせが予測に効くが、素朴なターゲットエンコーディングでは組み合わせの格子が疎になりすぎてうまく学習できないとき。
+  - - **初出**: 2026-08-12 / Predicting Smartphone Addiction (Playground Series S6E8)
+   - **[手法] 部分的ファインチューニング（Partial Fine-tuning）**（初出: 2026-08-12 / RSNA Knee Abnormality Detection）: 事前学習済みモデルの浅い層を凍結し、最後の数ブロックだけ学習してタスクに適応させる。データ不足時に汎用表現を壊さずタスク特化できる。
+- - **[手法] スコア自動検出ブレンダー（Future-Proof Score-Autodiscovery Ensembling）**（初出: 2026-08-13 / Predicting Smartphone Addiction (Playground Series S6E8)）: ファイル名のスコア数値を検出して新規提出ファイルを自動でアンサンブルに取り込む設計。コードを書き換えずにモデルを追加できる。
+       - - **[手法] 幾何平均によるアンサンブルブレンド（Geometric Mean Blending）**（初出: 2026-08-13 / Predicting Smartphone Addiction (Playground Series S6E8)）: 複数モデルの予測確率を幾何平均で統合。極端な低確率が1つでも混じると全体も強く引き下げられる。ROC-AUCのような自信満々の誤りに敏感な指標で有効。
+         - - **[手法] 整数計画法によるフレーム間対応付け（ILP-based Assignment）**（初出: 2026-08-14 / Biohub - Cell Tracking During Development）: 前後フレームの候補ペアにコストを割り当て、入出次数制約を満たしつつ最適な対応付けを求める。Hungarian法では表現できない細胞分裂のような1対多のトラッキング問題に有効。
+           - - **[手法] ギャップクロージング（Gap Closing / Track Stitching）**（初出: 2026-08-14 / Biohub - Cell Tracking During Development）: 検出漏れで途切れたトラックを、数フレーム先の再出現ノードと距離条件付きで再接続する後処理。許容ギャップや距離しきい値を緩くしすぎると偽陽性エッジのリスクが上がる。
+             - - **[手法] Nested Honest Cross-Validation（入れ子の誠実な交差検証）**（初出: 2026-08-14 / Predicting Smartphone Addiction (Playground Series S6E8)）: アンサンブルの重みを学習用foldだけで学習し、held-outなfoldだけでスコアを測る。in-fold過適合を見逃さず、公開LBとの整合性が高い信頼できる評価になる。
+               - - **[手法] Rank/Logitデュアル表現によるスタッキング（Dual Rank-Logit Representation）**（初出: 2026-08-14 / Predicting Smartphone Addiction (Playground Series S6E8)）: メタモデルに各メンバーの予測を渡す際、正規化ランクとロジット値の2列を両方与える。リスクなしでnested CV検証上安定してAUCが改善しやすい低コストな改善レバー。
+                 - - **[手法] 臨床否定表現検出（Clinical Negation Detection）**（初出: 2026-08-14 / RSNA Knee Abnormality Detection）: 放射線科レポートの自由記述テキストから否定語（前置・後置）を検出し、作用範囲内の病理表現の阳性・陰性を判定する自然言語処理（NegEx系）。LLMを使わず高精度な構造化ラベル抽出が可能になる。
+                   - - **[前処理] スロット単位の欠損マスキング（No Cross-Slot Substitution）**（初出: 2026-08-12 / RSNA Knee Abnormality Detection）: 特定の条件に合致するデータがない場合、他の条件のデータで代用せず「欠損（absent）」として明示的にマスクする設計原則。Attentionの注意配分が実際の取得情報のみに基づくようになる。
+                     - - **[前処理] 公式メタデータとの答え合わせによる判定ロジック監査（Audit Against Official Sequence Metadata）**（初出: 2026-08-13 / RSNA Knee Abnormality Detection）: 正規表現で推定した値（例: T1/T2強調の種別）を、コンペ公式の構造化メタデータと突き合わせ一致率を定量的に検証。静かに列化した前処理の見えないリスクを防ぐ。
+                       - - **[前処理] ナイキスト制約に基づくリサイズ設計（Nyquist-Aware Resampling）**（初出: 2026-08-13 / RSNA Knee Abnormality Detection）: 元MRIのPixelSpacingから決まる実質的な空間分解能を下回らないようにリサイズ解像度を設計。キリの良い固定解像度への単純統一だと小さな病変情報が失われうる。
+                         - - **[概念・その他] ライセンスゲート（Licence Gate for Public Datasets）**（初出: 2026-08-14 / Predicting Smartphone Addiction (Playground Series S6E8)）: 公開モデル予測・データセットを取り込む前にライセンス表記を確認し、不明・不適合なものを機械的に除外するチェック工程。除外によるスコア悪化（実測約1e-05）を許容しても「クリーンな成果物」を優先する設計判断。
+                          
+                           - 
