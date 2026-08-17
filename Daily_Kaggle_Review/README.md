@@ -17,3 +17,4 @@
 - [2026-08-12](./2026-08-12/README.md): Biohub - Cell Tracking During Development / Predicting Smartphone Addiction (Playground S6E8) / RSNA Knee Abnormality Detection
 - [2026-08-14](./2026-08-14/README.md): Biohub - Cell Tracking During Development / Predicting Smartphone Addiction (Playground S6E8) / RSNA Knee Abnormality Detection
 - [2026-08-17](./2026-08-17/README.md): Biohub - Cell Tracking During Development / Predicting Smartphone Addiction (Playground S6E8) / RSNA Knee Abnormality Detection
+- [2026-08-18](./2026-08-18/README.md): Biohub Cell Tracking (UNet+ILP) / Playground S6E8 (Lookup-Transformer) / RSNA Knee Abnormality
