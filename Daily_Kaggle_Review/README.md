@@ -21,3 +21,4 @@
 - [2026-08-19](./2026-08-19/README.md): Biohub Cell Tracking (Motion+Division Calibration) / Playground S6E8 (conditioning & leaderboard resolution) / RSNA Knee (DINO-RadImageNet Rank Ensemble)
 - [2026-08-20](./2026-08-20/README.md): Biohub - Cell Tracking / Playground S6E8 (Predicting Smartphone Addiction) / RSNA Knee Abnormality Detection
 - [2026-08-21](./2026-08-21/README.md): Biohub - Cell Tracking (Track Your Cells Development) / Playground S6E8 (Target Encoding & Robust Ensembling) / RSNA Knee (Take Care Of Your Knee)
+- [2026-08-22](./2026-08-22/README.md): Biohub Cell Tracking (Blend Preprocessings) / Playground S6E8 (Addiction Blend LB 0.97117) / RSNA Knee (baseline v1)
