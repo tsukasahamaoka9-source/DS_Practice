@@ -23,3 +23,4 @@
 - [2026-08-21](./2026-08-21/README.md): Biohub - Cell Tracking (Track Your Cells Development) / Playground S6E8 (Target Encoding & Robust Ensembling) / RSNA Knee (Take Care Of Your Knee)
 - [2026-08-22](./2026-08-22/README.md): Biohub Cell Tracking (Blend Preprocessings) / Playground S6E8 (Addiction Blend LB 0.97117) / RSNA Knee (baseline v1)
 - [2026-08-23](./2026-08-23/README.md): Biohub Cell Tracking (Kunal Desale, 0.917) / Playground S6E8 (The Score I Would Not Pick, 0.97119) / RSNA Knee (Farhan Abid, 0.922)
+- [2026-08-24](./2026-08-24/README.md): Biohub Cell Tracking (Kimi Notebook v17, 0.923) / Playground S6E8 (NN Residual Network, 0.97123) / RSNA Knee (CoAtNet Transformer Blend, 0.932)
