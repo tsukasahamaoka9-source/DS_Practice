@@ -10,3 +10,4 @@
 | 2026-08-12 | Cell-TRACTR: A transformer-based model for end-to-end segmentation and tracking of cells | 生物医療（細胞追跡, Biohub） | [DOI](https://doi.org/10.1371/journal.pcbi.1013071) / [要約](./2026-08-12/README.md) |
 | 2026-08-19 | MOSAIC: A Multilingual, Taxonomy-Agnostic, and Computationally Efficient Approach for Radiological Report Classification | 医用NLP（多言語レポートからの弱教師ラベル生成, RSNA Knee） | [arXiv](https://arxiv.org/abs/2509.04471) / [要約](./2026-08-19/README.md) |
 | 2026-08-22 | Cell Tracking according to Biological Needs — Strong Mitosis-aware Multi-Hypothesis Tracker with Aleatoric Uncertainty | 生物医療（細胞分裂を許す割当・多重仮説追跡, Biohub） | [arXiv](https://arxiv.org/abs/2403.15011) / [要約](./2026-08-22/README.md) |
+| 2026-08-26 | US-JEPA: A Joint Embedding Predictive Architecture for Medical Ultrasound | 医用超音波（潜在予測型の自己教師あり事前学習・基盤モデル, UMUD Challenge） | [arXiv](https://arxiv.org/abs/2602.19322) / [要約](./2026-08-26/README.md) |
