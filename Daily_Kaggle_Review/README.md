@@ -26,3 +26,4 @@
 - [2026-08-24](./2026-08-24/README.md): Biohub Cell Tracking (Kimi Notebook v17, 0.923) / Playground S6E8 (NN Residual Network, 0.97123) / RSNA Knee (CoAtNet Transformer Blend, 0.932)
 - [2026-08-25](./2026-08-25/README.md): Biohub Cell Tracking (0.926-biohub-divsub, 0.926) / Playground S6E8 (Rank-Logit-Regime Fusion, 0.97125) / UMUD Challenge: Muscle Architecture in Ultrasound (No-Train Anatomy-Calibrated DLTrack, 0.76704)
 - [2026-08-26](./2026-08-26/README.md): Biohub Cell Tracking (Biohub 0.927 LB, 0.927) / Playground S6E8 (Top 20 Formula: Dual Master Rank Blend, 0.97128) / RSNA Knee (Head and shoulders, knees and toes, 0.936)
+- [2026-08-27](./2026-08-27/README.md): Biohub Cell Tracking / Playground S6E8 / RSNA Knee Abnormality Detection
