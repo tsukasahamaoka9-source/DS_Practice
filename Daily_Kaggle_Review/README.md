@@ -28,3 +28,4 @@
 - [2026-08-26](./2026-08-26/README.md): Biohub Cell Tracking (Biohub 0.927 LB, 0.927) / Playground S6E8 (Top 20 Formula: Dual Master Rank Blend, 0.97128) / RSNA Knee (Head and shoulders, knees and toes, 0.936)
 - [2026-08-27](./2026-08-27/README.md): Biohub Cell Tracking / Playground S6E8 / RSNA Knee Abnormality Detection
 - [2026-08-28](./2026-08-28/README.md): Biohub Cell Tracking (biohub-sdw60, 0.927) / Playground S6E8 (S6E8: 0.97123 Rank-Gauss Blend, 0.97123) / RSNA Knee (rsna-base, 0.936)
+- [2026-08-29](./2026-08-29/README.md): Biohub Cell Tracking (biohub-0-928-lb, 0.928) / Playground S6E8 (S6e8 Public Ensemble, 0.97120) / RSNA Knee (RSNA Knee | Crazy LB Tune, 0.936)
