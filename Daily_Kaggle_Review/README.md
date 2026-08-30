@@ -30,3 +30,4 @@
 - [2026-08-28](./2026-08-28/README.md): Biohub Cell Tracking (biohub-sdw60, 0.927) / Playground S6E8 (S6E8: 0.97123 Rank-Gauss Blend, 0.97123) / RSNA Knee (rsna-base, 0.936)
 - [2026-08-29](./2026-08-29/README.md): Biohub Cell Tracking (biohub-0-928-lb, 0.928) / Playground S6E8 (S6e8 Public Ensemble, 0.97120) / RSNA Knee (RSNA Knee | Crazy LB Tune, 0.936)
 - [2026-08-30](./2026-08-30/README.md): Biohub Cell Tracking (Biohub Cell Tracking 92.6%, 0.926) / Playground S6E8 (🚨 OVERFITTING TRAP - Do Not Copy, 0.97129) / RSNA Knee (RSNA Knee DINO Protocol Fusion, 0.935)
+- [2026-08-31](./2026-08-31/README.md): Biohub Cell Tracking / Playground S6E8 Smartphone Addiction / RSNA Knee Abnormality Detection
