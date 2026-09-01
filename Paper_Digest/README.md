@@ -12,3 +12,4 @@
 | 2026-08-22 | Cell Tracking according to Biological Needs — Strong Mitosis-aware Multi-Hypothesis Tracker with Aleatoric Uncertainty | 生物医療（細胞分裂を許す割当・多重仮説追跡, Biohub） | [arXiv](https://arxiv.org/abs/2403.15011) / [要約](./2026-08-22/README.md) |
 | 2026-08-26 | US-JEPA: A Joint Embedding Predictive Architecture for Medical Ultrasound | 医用超音波（潜在予測型の自己教師あり事前学習・基盤モデル, UMUD Challenge） | [arXiv](https://arxiv.org/abs/2602.19322) / [要約](./2026-08-26/README.md) |
 | 2026-08-29 | Loss Design and Architecture Selection for Long-Tailed Multi-Label Chest X-Ray Classification | 医用画像（ロングテール・マルチラベル分類の損失設計, RSNA Knee） | [arXiv](https://arxiv.org/abs/2603.02294) / [要約](./2026-08-29/README.md) |
+| 2026-09-02 | Differentiable optimization layers enhance GNN-based mitosis detection | 生物医療（細胞分裂検出・微分可能最適化層, Biohub） | [DOI](https://doi.org/10.1038/s41598-023-41562-y) / [要約](./2026-09-02/README.md) |
