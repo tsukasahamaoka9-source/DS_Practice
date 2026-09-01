@@ -32,3 +32,4 @@
 - [2026-08-30](./2026-08-30/README.md): Biohub Cell Tracking (Biohub Cell Tracking 92.6%, 0.926) / Playground S6E8 (🚨 OVERFITTING TRAP - Do Not Copy, 0.97129) / RSNA Knee (RSNA Knee DINO Protocol Fusion, 0.935)
 - [2026-08-31](./2026-08-31/README.md): Biohub Cell Tracking / Playground S6E8 Smartphone Addiction / RSNA Knee Abnormality Detection
 - [2026-09-01](./2026-09-01/README.md): Biohub Cell Tracking / Playground S6E8 Smartphone Addiction / RSNA Knee Abnormality Detection
+- [2026-09-02](./2026-09-02/README.md): Biohub Cell Tracking (PROXY_SCORE 0.934) / Playground S6E9 EV購入予測 (Token XGB+Transformer, 0.94539) / RSNA Knee (4アーム基盤モデル融合, 0.936)
